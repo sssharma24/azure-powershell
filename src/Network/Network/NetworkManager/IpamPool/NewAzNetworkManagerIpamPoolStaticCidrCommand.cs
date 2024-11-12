@@ -28,22 +28,26 @@ using MNM = Microsoft.Azure.Management.Network.Models;
 
 namespace Microsoft.Azure.Commands.Network
 {
-    [Cmdlet("New", ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "NetworkManagerIpamPoolStaticCidr", SupportsShouldProcess = true), OutputType(typeof(PSStaticCidr))]
+    [Cmdlet("New", ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "NetworkManagerIpamPoolStaticCidr", SupportsShouldProcess = true, DefaultParameterSetName = CreateByNameParameterSet), OutputType(typeof(PSStaticCidr))]
 
     public class NewAzNetworkManagerIpamPoolStaticCidrCommand : IpamPoolStaticCidrBaseCmdlet
     {
+        private const string CreateByNameParameterSet = "ByName";
+
         [Alias("ResourceName")]
         [Parameter(
             Mandatory = true,
             ValueFromPipelineByPropertyName = true,
-            HelpMessage = "Static Cidr allocation name.")]
+            HelpMessage = "Static Cidr allocation name.",
+            ParameterSetName = CreateByNameParameterSet)]
         [ValidateNotNullOrEmpty]
         public virtual string Name { get; set; }
 
         [Parameter(
             Mandatory = true,
             ValueFromPipelineByPropertyName = true,
-            HelpMessage = "The network manager name.")]
+            HelpMessage = "The network manager name.",
+            ParameterSetName = CreateByNameParameterSet)]
         [ResourceGroupCompleter]
         [ValidateNotNullOrEmpty]
         public virtual string NetworkManagerName { get; set; }
@@ -51,34 +55,39 @@ namespace Microsoft.Azure.Commands.Network
         [Parameter(
             Mandatory = true,
             ValueFromPipelineByPropertyName = true,
-            HelpMessage = "The resource group name.")]
+            HelpMessage = "The resource group name.",
+            ParameterSetName = CreateByNameParameterSet)]
         [ResourceGroupCompleter]
         [ValidateNotNullOrEmpty]
         public virtual string ResourceGroupName { get; set; }
 
         [Parameter(
-         Mandatory = true,
-         ValueFromPipelineByPropertyName = true,
-         HelpMessage = "IP Address Manager Pool resource name.")]
+            Mandatory = true,
+            ValueFromPipelineByPropertyName = true,
+            HelpMessage = "IP Address Manager Pool resource name.",
+            ParameterSetName = CreateByNameParameterSet)]
          [ValidateNotNullOrEmpty]
         public virtual string PoolName { get; set; }
 
         [Parameter(
             Mandatory = false,
             ValueFromPipelineByPropertyName = true,
-            HelpMessage = "Number of IP addresses to allocate for a static CIDR resource. The IP addresses will be assigned based on IpamPools available space.")]
+            HelpMessage = "Number of IP addresses to allocate for a static CIDR resource. The IP addresses will be assigned based on IpamPools available space.",
+            ParameterSetName = CreateByNameParameterSet)]
         public virtual string NumberOfIPAddressesToAllocate { get; set; }
 
         [Parameter(
             Mandatory = true,
             ValueFromPipelineByPropertyName = true,
-            HelpMessage = "List of IP address prefixes of the resource.")]
+            HelpMessage = "List of IP address prefixes of the resource.",
+            ParameterSetName = CreateByNameParameterSet)]
         public virtual List<string> AddressPrefix { get; set; }
 
         [Parameter(
-         Mandatory = false,
-         ValueFromPipelineByPropertyName = true,
-         HelpMessage = "Description.")]
+            Mandatory = false,
+            ValueFromPipelineByPropertyName = true,
+            HelpMessage = "Description.",
+            ParameterSetName = CreateByNameParameterSet)]
         public virtual string Description { get; set; }
 
         [Parameter(
