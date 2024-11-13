@@ -121,7 +121,6 @@ namespace Microsoft.Azure.Commands.Network
                 throw new PSArgumentException("Invalid format. Ensure the ResourceId or Input Object is in the correct format.");
             }
             this.NetworkManagerName = segments[1];
-
         }
     }
 }
